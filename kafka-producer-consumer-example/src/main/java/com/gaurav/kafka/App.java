@@ -1,5 +1,6 @@
 package com.gaurav.kafka;
 
+import java.time.Duration;
 import java.util.concurrent.ExecutionException;
 
 import org.apache.kafka.clients.consumer.Consumer;
@@ -47,7 +48,7 @@ public class App {
 		int noMessageToFetch = 0;
 
 		while (true) {
-			final ConsumerRecords<Long, String> consumerRecords = consumer.poll(3000);
+			final ConsumerRecords<Long, String> consumerRecords = consumer.poll(Duration.ofSeconds(1));
 			if (consumerRecords.count() == 0) {
 				noMessageToFetch++;
 				if (noMessageToFetch > IKafkaConstants.MAX_NO_MESSAGE_FOUND_COUNT)
