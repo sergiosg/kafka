@@ -3,15 +3,17 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.gaurav.kafka</groupId>
-	<artifactId>kakfa-producer-consumer-example</artifactId>
+	<artifactId>kafka-producer-consumer-example</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>kakfa-producer-consumer-example</name>
+	<name>kafka-producer-consumer-example</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
 	</properties>
 
 	<dependencies>
@@ -29,6 +31,25 @@
 			<version>2.9.5</version>
 		</dependency>
 
-
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>java</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<mainClass>com.gaurav.kafka.App</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

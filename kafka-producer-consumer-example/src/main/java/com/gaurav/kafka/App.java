@@ -13,9 +13,32 @@ import com.gaurav.kafka.consumer.ConsumerCreator;
 import com.gaurav.kafka.producer.ProducerCreator;
 
 public class App {
-	public static void main(String[] args) {
-//		runProducer();
-		runConsumer();
+
+	public static class ThreadProducer extends Thread {
+
+		public void run(){
+			runProducer();
+		}
+
+	}
+
+	public static class ThreadConsumer extends Thread {
+
+		public void run(){
+			runConsumer();
+		}
+
+	}
+
+	public static void main(String[] args) throws InterruptedException {
+
+		ThreadProducer producer = new ThreadProducer();
+		ThreadConsumer consumer = new ThreadConsumer();
+
+		producer.start();
+		Thread.sleep(3000);
+		consumer.start();
+
 	}
 
 	static void runConsumer() {
@@ -24,7 +47,7 @@ public class App {
 		int noMessageToFetch = 0;
 
 		while (true) {
-			final ConsumerRecords<Long, String> consumerRecords = consumer.poll(1000);
+			final ConsumerRecords<Long, String> consumerRecords = consumer.poll(3000);
 			if (consumerRecords.count() == 0) {
 				noMessageToFetch++;
 				if (noMessageToFetch > IKafkaConstants.MAX_NO_MESSAGE_FOUND_COUNT)
